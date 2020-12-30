@@ -11,7 +11,6 @@ class ContentScreen extends Component {
     }
 
     componentDidMount() {
-        // this.getContent(this.state.page);
         var options = {
             root: null,
             rootMargin: "300px",
@@ -50,7 +49,7 @@ class ContentScreen extends Component {
     renderHeader() {
         return (
             <>
-                <img src={`public/img/Back.png`} className="h-4 m-2 mr-1 sm:h-4" />
+                <img src={`public/img/Back.png`} className="h-4 m-2 mr-1 sm:h-4 cursor-pointer" />
                 <div className="text-white sm:text-lg flex-1 ml-1">Romantic comedy</div>
                 <img
                     src={`public/img/search.png`}
@@ -66,13 +65,13 @@ class ContentScreen extends Component {
             <>
                 <img
                     src={`public/img/Back.png`}
-                    className="h-4 m-2 mr-1 sm:h-4"
+                    className="h-4 m-2 mr-3 sm:h-4 cursor-pointer"
                     onClick={this.props.toggleSearchBar.bind(this, false)}
                 />
                 <input
                     autoFocus={"autofocus"}
                     placeholder="Search"
-                    className="shadow appearance-none border rounded text-grey-darker focus:outline-none"
+                    className="shadow appearance-none border rounded text-grey-darker focus:outline-none sm:w-80"
                     onChange={this.handleChange}
                 />
             </>
@@ -89,33 +88,38 @@ class ContentScreen extends Component {
         return listOfContents
     }
 
+    renderContents(content, key) {
+        return (
+            <div
+                className="m-1.5 mt-5 flex flex-wrap justify-center" key={key}
+                key={key}
+            >
+                <div>
+                    <img
+                        src={`public/img/${content["poster-image"]}`}
+                        onError={(e) => {
+                            console.log(this)
+                            e.target.src = `public/img/placeholder_for_missing_posters.png`
+                        }}
+                        className="max-h-64"
+                    />
+                    <div className="text-xs	mt-2 text-white">
+                        {content["name"]}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     render() {
         const { isSearchBarVisible } = this.props;
         return (
             <div className="bg-black">
-                <div className="flex items-center sm:h-16 h-12 sticky top-0 justify-center" style={{backgroundImage: "url(public/img/nav_bar.png)"}}>
+                <div className="flex items-center sm:h-16 h-12 sticky top-0 justify-center" style={{ backgroundImage: "url(public/img/nav_bar.png)" }}>
                     {isSearchBarVisible ? this.renderSearchBar() : this.renderHeader()}
                 </div>
                 <div className="grid grid-cols-3 md:grid-cols-6 m-0.5 mb-0 min-h-screen">
-                    {this.filterContent().map((content, key) => (
-                        <div
-                            className="m-1.5 mt-5 flex flex-wrap justify-center" key={key}
-                            key={key}
-                        >
-                            <div>
-                                <img
-                                    src={`public/img/${content["poster-image"]}`}
-                                    onError={(e)=>{
-                                        console.log(this)
-                                        e.target.src= `public/img/placeholder_for_missing_posters.png`
-                                    }}
-                                />
-                                <div className="text-xs	mt-2 text-white">
-                                    {content["name"]}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                    {this.filterContent().map(this.renderContents)}
                 </div>
                 <div
                     ref={loadingRef => (this.loadingRef = loadingRef)}
