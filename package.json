@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "react components developed for my personal use, mostly used material-ui react",
   "main": "src/index.js",
+  "homepage": "http://Abhishek-VG.github.io/work-shop-tail-wind-css-react",
   "scripts": {
     "clean": "node ./clean",
     "start": "webpack-dev-server --colors --progress --config webpack.config.dev.js",
