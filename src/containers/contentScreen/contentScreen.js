@@ -53,7 +53,7 @@ class ContentScreen extends Component {
                 <div className="text-white sm:text-lg flex-1 ml-1">Romantic comedy</div>
                 <img
                     src={`public/img/search.png`}
-                    className="h-4 mr-2 sm:h-4"
+                    className="h-4 mr-2 sm:h-4 cursor-pointer"
                     onClick={this.props.toggleSearchBar.bind(this, true)}
                 />
             </>
