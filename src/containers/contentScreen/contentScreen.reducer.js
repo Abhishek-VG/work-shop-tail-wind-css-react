@@ -26,7 +26,8 @@ export default (state = INITIAL_STATE, action) => {
 
         case CONSTANTS.ACTION_TYPE.TOGGLE_SEARCH_BAR: return {
             ...state,
-            isSearchBarVisible: action.payload
+            isSearchBarVisible: action.payload,
+            searchKey: ""
         }
 
         default: return state;
